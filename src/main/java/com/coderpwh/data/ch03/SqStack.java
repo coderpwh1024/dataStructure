@@ -1,4 +1,4 @@
-package com.coderpwh.data.ch03;
+ package com.coderpwh.data.ch03;
 
 /***
  *  顺序栈
@@ -45,14 +45,31 @@ public class SqStack implements IStack {
 
     }
 
+    /***
+     *  移除栈顶
+     * @return
+     */
     @Override
     public Object pop() {
-        return null;
+        if (top == 0) {
+            return null;
+        } else {
+            return stackElem[--top];
+        }
     }
 
+    /***
+     *  如栈
+     * @param object
+     * @throws Exception
+     */
     @Override
     public void push(Object object) throws Exception {
-
+        if (top == stackElem.length) {
+            throw new Exception("栈已满");
+        } else {
+            stackElem[top++] = object;
+        }
     }
 
     @Override
