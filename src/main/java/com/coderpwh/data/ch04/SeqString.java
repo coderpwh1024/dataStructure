@@ -98,10 +98,124 @@ public class SeqString implements IString {
         }
     }
 
+
+    /***
+     *  String  扩容 方法
+     * @param newCapacity
+     */
+    public void allocate(int newCapacity) {
+        char[] temp = strvalue;
+        strvalue = new char[newCapacity];
+        for (int i = 0; i < temp.length; i++) {
+            strvalue[i] = temp[i];
+        }
+    }
+
+
+    /***
+     *   string insert 操作
+     * @param offset
+     * @param str
+     * @return
+     */
     @Override
     public IString insert(int offset, IString str) {
-        return null;
+        if ((offset < 0) || (offset > this.curlen)) {
+            throw new StringIndexOutOfBoundsException("插入位置不合法!");
+        }
+        int len = str.length();
+        int newCount = this.curlen + len;
+        if (newCount > strvalue.length) {
+            allocate(newCount);
+        }
+        for (int i = this.curlen - 1; i >= offset; i--) {
+            strvalue[len + i] = strvalue[i];
+        }
+
+        for (int i = 0; i < len; i++) {
+            strvalue[offset + i] = str.charAt(i);
+        }
+        this.curlen = newCount;
+        return this;
+    }
+
+    /***
+     *  string
+     * @param begin
+     * @param end
+     * @return
+     */
+    public IString delete(int begin, int end) {
+        if (begin < 0) {
+            throw new StringIndexOutOfBoundsException("起始位置不能小于0");
+        }
+        if (end > curlen) {
+            throw new StringIndexOutOfBoundsException("结束位置不能大于串的当前长度:" + curlen);
+        }
+        for (int i = 0; i < curlen - end; i++) {
+            strvalue[begin + i] = strvalue[end + i];
+        }
+        curlen = curlen - (end - begin);
+        return this;
+    }
+
+
+    /***
+     *   拼接字符串
+     * @param str
+     * @return
+     */
+    public IString concat(IString str) {
+        return insert(curlen, str);
+    }
+
+    /***
+     *  字符串拼接
+     * @param c
+     * @return
+     */
+    public IString concat(char c) {
+        int newCount = curlen + 1;
+        if (newCount > strvalue.length) {
+            allocate(newCount);
+        }
+        strvalue[curlen++] = c;
+        return this;
+    }
+
+
+    @Override
+    public String toString() {
+        return new String(strvalue, 0, curlen);
+    }
+
+    public int compareTo(IString str) {
+        return compareTo((SeqString) str);
+    }
+
+
+    /****
+     *
+     *  compareTo 比较
+     *
+     *
+     * @param str
+     * @return
+     */
+    public int compareTo(SeqString str) {
+
+        int len1 = curlen;
+        int len2 = str.curlen;
+        int n = Math.min(len1, len2);
+
+        for (int k = 0; k < n; k++) {
+            if (strvalue[k] != str.strvalue[k]) {
+                return (strvalue[k] - str.strvalue[k]);
+            }
+        }
+        return len1 - len2;
     }
 
 
 }
+
