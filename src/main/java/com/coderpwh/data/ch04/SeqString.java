@@ -259,11 +259,52 @@ public class SeqString implements IString {
         return -1;
     }
 
+    public int index_KMP(IString T, int start) {
 
-   
+        int[] next = getNext(T);
+        int i = start;
+        int j = 0;
+        while (i < this.length() && j < T.length()) {
+            if (j == -1 || this.charAt(i) == T.charAt(j)) {
+                i++;
+                j++;
+            } else {
+                j = next[j];
+            }
+        }
+        if (j < T.length()) {
+            return -1;
+        } else {
+            return (i - T.length());
+        }
+
+    }
 
 
+    protected int[] getNext(IString T) {
+        int[] next = new int[T.length()];
+        int j = 1;
+        int k = 0;
+        next[0] = -1;
+        if (T.length() > 1) {
+            next[1] = 0;
+        }
+        while (j < T.length() - 1) {
+            if (T.charAt(j) == T.charAt(k)) {
+                next[j + 1] = k + 1;
+                j++;
+                k++;
+            } else if (k == 0) {
+                next[j + 1] = 0;
+                j++;
+            } else {
+                k = next[k];
+            }
+
+        }
+
+        return next;
+    }
 
 
 }
-
