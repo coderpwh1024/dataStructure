@@ -217,5 +217,53 @@ public class SeqString implements IString {
     }
 
 
+    /****
+     *
+     *  简单模式匹配
+     *
+     *   主串: aaaaaaaaaaab
+     *   子串:  aaab
+     *   start=0; 9
+     *   (aab,9) 满足 if
+     *   (aab,0) 满足 else
+     *
+     *
+     * @param t
+     * @param start
+     * @return
+     */
+    public int index_BF(SeqString t, int start) {
+
+        if (this != null && t != null && t.length() > 0 && this.length() >= t.length()) {
+            int slen = this.length();
+            int tlen = t.length();
+            int i = start;
+            int j = 0;
+            while ((i < slen) && (j < tlen)) {
+                if (this.charAt(i) == t.charAt(j)) {
+                    i++;
+                    j++;
+                } else {
+                    i = i - j + 1;
+                    j = 0;
+                }
+                if (j >= t.length()) {
+                    return i - tlen;
+                } else {
+                    return -1;
+                }
+
+            }
+
+        }
+        return -1;
+    }
+
+
+   
+
+
+
+
 }
 
