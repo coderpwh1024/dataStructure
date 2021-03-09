@@ -259,6 +259,12 @@ public class SeqString implements IString {
         return -1;
     }
 
+
+    public int indexOf(IString t, int start) {
+        return index_KMP(t, start);
+    }
+
+
     public int index_KMP(IString T, int start) {
 
         int[] next = getNext(T);
@@ -308,3 +314,4 @@ public class SeqString implements IString {
 
 
 }
+
