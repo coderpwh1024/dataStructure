@@ -62,6 +62,11 @@ public class BiTree {
     }
 
 
+    /***
+     *  非递归方式，从根部开始遍历
+     *
+     *
+     */
     public void preRootTraverse() {
 
         try {
@@ -88,6 +93,83 @@ public class BiTree {
             }
         } catch (Exception e) {
             e.getMessage();
+        }
+    }
+
+
+    /****
+     *
+     *  非递归方式,从中根开始遍历实现
+     *
+     *
+     *
+     */
+    public void intRootTraverse() {
+        try {
+            BiTreeNode T = root;
+            if (T != null) {
+                LinkStack S = new LinkStack();
+                S.push(T);
+                while (!S.isEmpty()) {
+                    while (S.peek() != null) {
+                        S.push(((BiTreeNode) S.peek()).lchild);
+                    }
+                    S.pop();
+                    if (!S.isEmpty()) {
+                        T = (BiTreeNode) S.pop();
+                        System.out.println(T.data);
+                        S.push(T.rchild);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
+
+    /***
+     *
+     *  非递归方式，从后根方式遍历实现
+     *
+     *
+     *
+     */
+    public void postRootTraverse() {
+        try {
+            BiTreeNode T = root;
+            if (T != null) {
+                LinkStack S = new LinkStack();
+                S.push(T);
+                Boolean flag;
+                BiTreeNode p = null;
+
+                while (!S.isEmpty()) {
+                    while (S.peek() != null) {
+                        S.push(((BiTreeNode) S.peek()).lchild);
+                    }
+                    S.pop();
+                    while (!S.isEmpty()) {
+                        T = (BiTreeNode) S.peek();
+                        if (T.rchild == null || T.rchild == p) {
+                            System.out.println(T.data);
+                            S.pop();
+                            p = T;
+                            flag = true;
+                        } else {
+                            S.push(T.rchild);
+                            flag = false;
+                        }
+                        if (!flag) {
+                            break;
+                        }
+                    }
+
+                }
+            }
+        } catch (Exception e) {
+            e.fillInStackTrace();
         }
     }
 
