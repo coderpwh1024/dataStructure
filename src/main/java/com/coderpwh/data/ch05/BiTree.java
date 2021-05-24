@@ -1,5 +1,6 @@
 package com.coderpwh.data.ch05;
 
+import com.coderpwh.data.ch03.LinkQueue;
 import com.coderpwh.data.ch03.LinkStack;
 
 public class BiTree {
@@ -14,6 +15,15 @@ public class BiTree {
 
 
     public BiTree(BiTreeNode root) {
+        this.root = root;
+    }
+
+
+    public BiTreeNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(BiTreeNode root) {
         this.root = root;
     }
 
@@ -173,6 +183,30 @@ public class BiTree {
         }
     }
 
+    public void levelTraverse() {
+
+        try {
+            BiTreeNode T = root;
+
+            if (T != null) {
+                LinkQueue L = new LinkQueue();
+                L.offer(T);
+
+                while (!L.isEmpty()) {
+                    T = (BiTreeNode) L.poll();
+                    System.out.println(T.data);
+                    if (T.lchild != null) {
+                        L.offer(T.lchild);
+                    }
+                    if (T.rchild != null) {
+                        L.offer(T.rchild);
+                    }
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
 
 }
-
