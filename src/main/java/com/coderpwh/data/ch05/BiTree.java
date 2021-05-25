@@ -183,8 +183,12 @@ public class BiTree {
         }
     }
 
-    public void levelTraverse() {
 
+    /***
+     *  层次遍历，二叉树
+     *
+     */
+    public void levelTraverse() {
         try {
             BiTreeNode T = root;
 
@@ -206,6 +210,45 @@ public class BiTree {
         } catch (Exception e) {
 
         }
+    }
+
+
+    /***
+     *  统计叶结点数目
+     *
+     * @param T
+     * @return
+     */
+    public int countLeafNode(BiTreeNode T) {
+        int count = 0;
+
+        if (T != null) {
+            if (T.lchild == null && T.rchild == null) {
+                ++count;
+            } else {
+                count += countLeafNode(T.lchild);
+                count += countLeafNode(T.rchild);
+            }
+        }
+        return count;
+    }
+
+
+    /****
+     *
+     * 统计结点数目
+     * @param T
+     * @return
+     */
+    public int countNode(BiTreeNode T) {
+        int count = 0;
+
+        if (T != null) {
+            ++count;
+            count += countNode(T.lchild);
+            count += countNode(T.rchild);
+        }
+        return count;
     }
 
 
