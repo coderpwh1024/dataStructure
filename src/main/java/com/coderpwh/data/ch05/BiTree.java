@@ -27,6 +27,59 @@ public class BiTree {
         this.root = root;
     }
 
+
+    // 标明空子树的先根遍历
+    private static int index = 0;
+
+
+    public BiTree(String preStr) {
+        char c = preStr.charAt(index++);
+
+        if (c != '#') {
+            root = new BiTreeNode(c);
+            root.lchild = new BiTree(preStr).root;
+            root.rchild = new BiTree(preStr).root;
+        } else {
+            root = null;
+        }
+    }
+
+
+    /***
+     *
+     *
+     * @param preOrder
+     * @param inOrder
+     * @param preIndex
+     * @param inIndex
+     * @param count
+     */
+    public BiTree(String preOrder, String inOrder, int preIndex, int inIndex, int count) {
+
+        if (count > 0) {
+
+            char r = preOrder.charAt(preIndex);
+
+            int i = 0;
+
+            for (; i < count; i++) {
+                if (r == inOrder.charAt(i + inIndex)) {
+                    break;
+                }
+                root = new BiTreeNode(r);
+                // 左子树
+                root.lchild = new BiTree(preOrder, inOrder, preIndex + 1, inIndex, i).root;
+
+                // 右子树
+                root.rchild = new BiTree(preOrder, inOrder, preIndex + i + 1, inIndex + i + 1, count - i - 1).root;
+
+            }
+        }
+
+
+    }
+
+
     /***
      *   从根部遍历二叉树，递归方式，现在左树后右树
      * @param T
@@ -252,4 +305,26 @@ public class BiTree {
     }
 
 
+    /***
+     *   递归的方式查找二叉树上的结点
+     *
+     * @param T
+     * @param x
+     * @return
+     */
+    public BiTreeNode searchNode(BiTreeNode T, Object x) {
+        if (T != null) {
+            if (T.data.equals(x)) {
+                return T;
+            } else {
+                BiTreeNode lresutl = searchNode(T.lchild, x);
+                return lresutl != null ? lresutl : searchNode(T.rchild, x);
+            }
+        }
+        return null;
+
+    }
+
+
 }
+
