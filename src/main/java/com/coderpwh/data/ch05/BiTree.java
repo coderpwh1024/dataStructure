@@ -87,7 +87,7 @@ public class BiTree {
     public void preRootTraverse(BiTreeNode T) {
 
         if (T != null) {
-            System.out.println(T.data);
+            System.out.print(T.data);
             preRootTraverse(T.lchild);
             preRootTraverse(T.rchild);
         }
@@ -104,7 +104,7 @@ public class BiTree {
 
         if (T != null) {
             intRootTraverse(T.lchild);
-            System.out.println(T.data);
+            System.out.print(T.data);
             intRootTraverse(T.rchild);
         }
     }
@@ -119,7 +119,7 @@ public class BiTree {
         if (T != null) {
             postRootTraverse(T.lchild);
             postRootTraverse(T.rchild);
-            System.out.println(T.data);
+            System.out.print(T.data);
         }
 
     }
@@ -140,10 +140,10 @@ public class BiTree {
                 S.push(T);
                 while (!S.isEmpty()) {
                     T = (BiTreeNode) S.pop();
-                    System.out.println(T.data);
+                    System.out.print(T.data);
                     while (T != null) {
                         if (T.lchild != null) {
-                            System.out.println(T.lchild.data);
+                            System.out.print(T.lchild.data);
                         }
                         if (T.rchild != null) {
                             S.push(T.rchild);
@@ -180,7 +180,7 @@ public class BiTree {
                     S.pop();
                     if (!S.isEmpty()) {
                         T = (BiTreeNode) S.pop();
-                        System.out.println(T.data);
+                        System.out.print(T.data);
                         S.push(T.rchild);
                     }
                 }
@@ -216,7 +216,7 @@ public class BiTree {
                     while (!S.isEmpty()) {
                         T = (BiTreeNode) S.peek();
                         if (T.rchild == null || T.rchild == p) {
-                            System.out.println(T.data);
+                            System.out.print(T.data);
                             S.pop();
                             p = T;
                             flag = true;
@@ -251,7 +251,7 @@ public class BiTree {
 
                 while (!L.isEmpty()) {
                     T = (BiTreeNode) L.poll();
-                    System.out.println(T.data);
+                    System.out.print(T.data);
                     if (T.lchild != null) {
                         L.offer(T.lchild);
                     }
@@ -322,9 +322,54 @@ public class BiTree {
             }
         }
         return null;
+    }
 
+
+    /***
+     *  二叉树的深度
+     *  求出左右树的深度，然后比较获取最大值加1
+     *
+     * @param T
+     * @return
+     */
+    public int getDepth(BiTreeNode T) {
+        if (T != null) {
+
+            int lDepth = getDepth(T.lchild);
+
+            int rDepth = getDepth(T.rchild);
+
+            return 1 + (lDepth > rDepth ? lDepth : rDepth);
+        }
+        return 0;
+    }
+
+
+    /***
+     *  判断二课二叉树是否相等
+     * @param T1
+     * @param T2
+     * @return
+     */
+    public boolean isEqual(BiTreeNode T1, BiTreeNode T2) {
+
+        if (T1 == null && T2 == null) {
+            return true;
+        }
+
+        if (T1 != null && T2 != null) {
+            if (isEqual(T1.lchild, T2.lchild)) {
+                if (T1.data.equals(T2.data)) {
+                    if (isEqual(T1.rchild, T2.rchild)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 
 }
+
 
