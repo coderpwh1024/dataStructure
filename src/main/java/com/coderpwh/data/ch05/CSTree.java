@@ -1,5 +1,10 @@
 package com.coderpwh.data.ch05;
 
+import com.coderpwh.data.ch03.LinkQueue;
+
+/***
+ * 二叉链式存储
+ */
 public class CSTree {
 
 
@@ -46,4 +51,30 @@ public class CSTree {
         }
     }
 
+
+    /**
+     * 层次遍历
+     */
+    public void levelTraverse() {
+        try {
+            CSTreeNode T = root;
+            if (T != null) {
+                LinkQueue L = new LinkQueue();
+                L.offer(T);
+                while (!L.isEmpty()) {
+                    for (T = (CSTreeNode) L.poll(); T != null; T = T.nextsibling) {
+                        System.out.print(T.data);
+                        if (T.firstchild != null) {
+                            L.offer(T.firstchild);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.fillInStackTrace();
+        }
+    }
+
+
 }
+
