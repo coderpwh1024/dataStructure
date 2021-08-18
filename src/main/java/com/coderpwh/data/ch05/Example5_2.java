@@ -1,4 +1,4 @@
- package com.coderpwh.data.ch05;
+package com.coderpwh.data.ch05;
 
 /***
  *
@@ -19,11 +19,29 @@ public class Example5_2 {
 
         Example5_2 example = new Example5_2();
 
+        System.out.println("通过递归的方式获取二叉树上的结点个数为:" + example.getCountNode(root));
 
         System.out.println("通过先根方式获取二叉树树上结点个数为:" + example.countNode(root));
 
-        System.out.println("通过递归的方式获取二叉树上的结点个数为:" + example.getCountNode(root));
+        System.out.println("通过中跟方式获取二叉树上的结点个数为:" + example.midCountNode(root));
 
+        System.out.println("通过后根方式获取二叉树上结点个数为:" + example.afterCountNode(root));
+
+
+    }
+
+
+    /***
+     *  递归方式获取
+     * @param root
+     * @return
+     */
+    public int getCountNode(BiTreeNode root) {
+
+        if (root == null) {
+            return 0;
+        }
+        return getCountNode(root.lchild) + getCountNode(root.rchild) + 1;
     }
 
 
@@ -46,16 +64,38 @@ public class Example5_2 {
 
 
     /***
-     *  递归方式获取
+     *  中根方式遍历
      * @param root
      * @return
      */
-    public int getCountNode(BiTreeNode root) {
+    public int midCountNode(BiTreeNode root) {
 
-        if (root == null) {
-            return 0;
+        int count = 0;
+
+        if (root != null) {
+            count += countNode(root.lchild);
+            count++;
+            count += countNode(root.rchild);
         }
-        return getCountNode(root.lchild) + getCountNode(root.rchild) + 1;
+        return count;
+    }
+
+
+    /***
+     * 后根方式遍历
+     * @param root
+     * @return
+     */
+    public int afterCountNode(BiTreeNode root) {
+
+        int count = 0;
+
+        if (root != null) {
+            count += countNode(root.lchild);
+            count += countNode(root.rchild);
+            count++;
+        }
+        return count;
     }
 
 
