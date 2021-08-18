@@ -18,14 +18,17 @@ public class Example5_3 {
         BiTreeNode root = biTree.getRoot();
 
 
-        System.out.println(example.getDepth(root));
+        System.out.println("当前二叉树上的结点深度为:" + example.getDepthCount(root));
+
+
+        System.out.println("当前二叉树上的结点深度为:" + example.getDepth(root));
 
 
     }
 
 
     /***
-     *  递归的方式实现
+     *  递归的方式实现--分别统计左右结点的深度然后加上根结点
      * @param root
      * @return
      */
@@ -44,6 +47,24 @@ public class Example5_3 {
 
         }
         return count;
+    }
+
+
+    /**
+     * 递归方式实现
+     *
+     * @param root
+     * @return
+     */
+    public int getDepthCount(BiTreeNode root) {
+
+        if (root == null) {
+            return 0;
+        } else if (root.lchild == null && root.rchild == null) {
+            return 1;
+        } else {
+            return 1 + (getDepthCount(root.lchild) > getDepthCount(root.rchild) ? getDepthCount(root.lchild) : getDepthCount(root.rchild));
+        }
     }
 
 
