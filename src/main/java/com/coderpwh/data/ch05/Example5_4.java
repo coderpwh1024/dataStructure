@@ -23,6 +23,8 @@ public class Example5_4 {
 
         System.out.println("通过中根方式实现结果为:" + example.midIsEqual(node1, node1));
 
+        System.out.println("通过后根方式实现结果为:" + example.afterIsEqual(node1, node1));
+
 
     }
 
@@ -92,6 +94,33 @@ public class Example5_4 {
                 }
             }
         }
+        return false;
+    }
+
+
+    /***
+     *  通过后根方式实现
+     * @param node1
+     * @param node2
+     * @return
+     */
+    public boolean afterIsEqual(BiTreeNode node1, BiTreeNode node2) {
+
+        if (node1 == null && node2 == null) {
+            return true;
+        }
+
+        if (node1 != null && node2 != null) {
+
+            if (afterIsEqual(node1.lchild, node2.lchild)) {
+                if (afterIsEqual(node1.rchild, node2.rchild)) {
+                    if (node1.data.equals(node2.data)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
