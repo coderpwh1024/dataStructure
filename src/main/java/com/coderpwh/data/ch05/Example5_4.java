@@ -18,12 +18,20 @@ public class Example5_4 {
 
         System.out.println(example.isEqual(node1, node2));
 
-        System.out.println(example.isEqual(node1,node1));
+        System.out.println(example.isEqual(node1, node1));
+
+        System.out.println(example.preIsEqual(node1, node1));
 
 
     }
 
 
+    /***
+     *   递归方式实现
+     * @param node1
+     * @param node2
+     * @return
+     */
     public boolean isEqual(BiTreeNode node1, BiTreeNode node2) {
         if (node1 == null && node2 == null) {
             return true;
@@ -34,6 +42,33 @@ public class Example5_4 {
             return false;
         }
     }
+
+
+    /***
+     *  通过前根方式遍历
+     * @param node1
+     * @param node2
+     * @return
+     */
+    public boolean preIsEqual(BiTreeNode node1, BiTreeNode node2) {
+
+        if (node1 == null && node2 == null) {
+            return true;
+        }
+
+        if (node1 != null && node2 != null) {
+            if (node1.data.equals(node2.data)) {
+                if (preIsEqual(node1.lchild, node2.lchild)) {
+                    if (preIsEqual(node1.rchild, node2.rchild)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
 
 
 }
