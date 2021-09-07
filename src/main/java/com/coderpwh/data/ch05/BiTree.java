@@ -1,4 +1,4 @@
- package com.coderpwh.data.ch05;
+package com.coderpwh.data.ch05;
 
 import com.coderpwh.data.ch03.LinkQueue;
 import com.coderpwh.data.ch03.LinkStack;
@@ -45,49 +45,44 @@ public class BiTree {
     }
 
 
+    /***
+     *
+     * ABDEGCFH
+     *
+     * 由先根与中根序列构建二叉树
+     * @param preOrder
+     * @param inOrder
+     * @param preIndex
+     * @param inIndex
+     * @param count
+     */
     public BiTree(String preOrder, String inOrder, int preIndex, int inIndex, int count) {
 
-        if (count > 0) {
-            char r = preOrder.charAt(preIndex);
-            int i = 0;
 
+        if (count > 0) {
+
+            char r = preOrder.charAt(preIndex);
+
+            int i = 0;
             for (; i < count; i++) {
 
-                if (r == inOrder.charAt(i + inIndex)) {
+                if (r == inOrder.charAt(inIndex + i)) {
                     break;
                 }
             }
             root = new BiTreeNode(r);
-            root.lchild=new BiTree(preOrder, inOrder, preIndex + 1, inIndex,
-                    i).root;
-            root.rchild=new BiTree(preOrder, inOrder, preIndex + i + 1,
-                    inIndex + i + 1, count - i - 1).root;
+
+            // 构建左结点
+            root.lchild = new BiTree(preOrder, inOrder, preIndex + 1, inIndex, i).root;
+
+            // 构建右结点树
+            root.rchild = new BiTree(preOrder, inOrder, preIndex + 1 + i, inIndex + 1 + i, count - 1 - i).root;
+
 
         }
+
 
     }
-
-
-
-
-
- /*   public BiTree(String preOrder, String inOrder, int preIndex, int inIndex,
-                  int count) {
-        if (count > 0) {// 先根和中根非空
-            char r = preOrder.charAt(preIndex);// 取先根字符串中的第一个元素作为根结点
-            int i = 0;
-            for (; i < count; i++)
-                // 寻找根结点在中根遍历字符串中的索引
-                if (r == inOrder.charAt(i + inIndex))
-                    break;
-
-            root = new BiTreeNode(r);// 建立树的根结点
-            root.lchild=new BiTree(preOrder, inOrder, preIndex + 1, inIndex,
-                    i).root;// 建立树的左子树
-            root.rchild=new BiTree(preOrder, inOrder, preIndex + i + 1,
-                    inIndex + i + 1, count - i - 1).root;// 建立树的右子树
-        }
-    }*/
 
 
     /***
