@@ -77,12 +77,72 @@ public class BiTree {
 
             // 构建右结点树
             root.rchild = new BiTree(preOrder, inOrder, preIndex + 1 + i, inIndex + 1 + i, count - 1 - i).root;
+        }
+    }
 
 
+    /***
+     *
+     * 由中根与后根构建二叉树
+     * @param postIndex
+     * @param inIndex
+     * @param count
+     * @param postOrder
+     * @param inOrder
+     */
+    public BiTree(int postIndex, int inIndex, int count, String postOrder, String inOrder) {
+
+        if (count > 0) {
+
+            char r = postOrder.charAt(postIndex);
+
+            int i = 0;
+
+            for (; i < count; i++) {
+
+                if (r == inOrder.charAt(inIndex - i)) {
+                    break;
+                }
+            }
+
+            // 构建根结点
+            root = new BiTreeNode(r);
+
+            // 构建左结点
+            root.lchild = new BiTree(postIndex - i - 1, inIndex - i - 1, count - i - 1, postOrder, inOrder).root;
+
+
+            // 构建右结点
+            root.rchild = new BiTree(postIndex - 1, inIndex, i, postOrder, inOrder).root;
+
+        }
+    }
+
+
+  /*  public BiTree(int inIndex, int postIndex, int count, String inOrder, String postOrder) {
+
+        if (count > 0) {
+
+            char r = postOrder.charAt(postIndex);
+
+            int i = 0;
+
+            for (; i < count; i++) {
+                if (r == inOrder.charAt(inIndex + i)) {
+                    break;
+                }
+            }
+
+            // 根结点
+            root = new BiTreeNode(r);
+
+            root.lchild = new BiTree(inIndex + 1, postIndex - i, i, inOrder, postOrder).root;
+
+            root.rchild = new BiTree(count - 1 - inIndex, postIndex - i + 1, count - 1 - i, inOrder, postOrder).root;
         }
 
 
-    }
+    }*/
 
 
     /***
